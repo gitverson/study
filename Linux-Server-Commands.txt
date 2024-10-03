@@ -1,0 +1,335 @@
+
+
+SSH Command	Explanation
+
+ls	Show directory contents (list the names of files).
+cd	Change Directory.
+mkdir	Create a new folder (directory).
+touch	Create a new file.
+rm	Remove a file.
+cat	Show contents of a file.
+pwd	Show current directory (full path to where you are right now).
+cp	Copy file/folder.
+mv	Move file/folder.
+grep	Search for a specific phrase in file/lines.
+find	Search files and directories.
+vi/nano	Text editors.
+history	Show last 50 used commands.
+clear	Clear the terminal screen.
+tar	Create & Unpack compressed archives.
+wget	Download files from the internet.
+du	Get file size.
+
+
+
+cd command -  cd/home/username/Documents
+
+
+
+mv command - mv file.txt /home/username/Documents.
+
+
+
+mkdir command - mkdir Music/Newfile  - ex - mkdir -p Music/2020/Newfile
+
+
+
+find command -  find /home/ -name notes.txt
+
+
+
+df command -  df -h , df -m  --- For Space check (Run twice a weak)
+
+
+=====================================================================
+
+Cron-job Syntax  Explaination 
+
+Field          Possible value     Syntax    	Description 
+
+Minute       0 – 59	           7 * * * *        The cron job is initiated every time the system clock shows 7 in the minute’s position
+
+ Hour   	0 – 23	          0 7 * * *         The cron job runs any time the system clock shows 7am (7pm would be coded as 19).
+
+ Day        0 – 31                 0 0 7 * *         The day of the month is 7 which means that the job runs every 7th day of the month.
+
+Month      0 = none and 12 = December    0 0 0 7 *     The numerical month is 7 which determines that the job runs only in July.
+
+Day of the Week   0 = Sunday and 7 = Sunday   0 0 * * 7    7 in the current position means that the job would only run on Sundays.
+
+EXAMPLE :  */15 * * * * mysqldump -u nicmipd22 -p nic > /home/Sql_dump/nic13-05-2020.sql 
+
+At every 15th Minute 
+
+EXAMPLE : 10 * * * * tar -cvzf /home/nicmipd21/docs15-05-2020.tar.gz docs --- File System
+
+At every 10 Minute
+
+=====================================================================
+
+Restart Command for Apache :
+
+Used for check apache status-  apachectl -t - Syntax ok
+
+ systemctl start  httpd24-httpd.service - To start the service
+
+ systemctl status httpd24-httpd.service - To check the status the service
+
+ systemctl stop httpd24-httpd.service - To stop the service
+
+=====================================================================
+
+YUM Command 
+
+ yum search rh-*
+ yum search rh-httpd
+ yum ls /opt/rh/
+ yum reinstall httpd24
+ yum reinstall rh-httpd24
+
+=====================================================================
+
+Import & Export commands on server 
+
+File System -----
+
+tar -cvzf /home/nicmipd25/docs30-03-2021.tar.gz docs - (For www.nic.in)
+
+tar -cvzf/home/timeline13-03-2021.tar.gz timeline -( For digitaljourney.nic.in)
+
+
+DB backup ---
+
+mysqldump -u nicmipd27 -p nic > /home/nicmipd27/nicpro07032021 (www.nic.in DB Export)
+
+mysql -u super -p timeline < /home/DB-Backup/backup13-03-2021.sql (digitaljourney.nic.in DB import)
+
+
+=====================================================================
+
+Giving permission to the file 
+
+chmod -R 750 file name
+
+chmod -R 750 Home.php
+
+=====================================================================
+
+To search for the error logs 
+
+Go to the location :
+
+tail -f  /var/log/httpd/access-log
+
+=====================================================================
+
+To check the network lag time 
+
+ps -axu | grep httpd
+
+ps-axu | wc -l
+
+
+=====================================================================
+
+Regarding RHEL VMs not registered on RHN Satellite Server
+
+
+Steps :
+
+Check the port (80,443) connectivity from machine to Redhat Satellite 6.8 by
+using telnet command:
+
+#telnet <Redhat_satellite_server_IP> <port>
+Example
+#telnet 10.247.231.68
+
+yum update curl libcurl pyOpenSSL ca-certificates subscription-manager yum nss
+nspr python-rhsm –y
+
+Go to the folder /opt in the VM
+
+#cd </folder_name>
+Example
+#cd /opt
+
+Execute Command 
+
+curl --insecure --output WC3REG.sh http://10.247.231.68/pub/WC3REG.sh
+
+Change mode of the downloaded
+
+script: #chmod +x WC3REG.sh
+
+Execute the script
+#sh WC3REG.sh
+
+=====================================================================
+
+How to execute SOS report 
+
+Type sosreport on putty console and it will ask for press to enter to continue
+
+press case id -1
+
+wait for completion of process -
+
+Your sosreport has been generated and saved in:
+  /var/tmp/sosreport-it63p-stgnic-001-1-2021-03-24-mskgbap.tar.xz
+
+ Size   13.08MiB
+ Owner  root
+ md5    65142fa2ba29d5f0271ce8e6c3e46421
+
+
+Above is the location and name of your file 
+
+====================================================================
+
+for run sh file in linux server
+sh install.sh -i  
+
+/etc/init.d/cma status
+
+====================================================================
+#find / detect if log4j installed on our servers
+
+locate log4j 
+locate log4j* 
+
+====================================================================
+
+# Agent Based Backup - JOB FAILED NOTIFICATION
+
+locate startup.sh
+/usr/netvault/etc/startup.sh start/stop
+
+
+====================================================================
+
+To remove non-empty directories and all the files without being prompted, use rm with the -r (recursive) and -f options: 
+
+rm -rf dirname  
+
+
+====================================================================
+MacAfee AntiVirus upgradation activity
+
+#wget  http://10.248.6.99/download/MA573Linux.zip 
+
+unzip the package.
+
+run command :
+
+unzip  MA573Linux.zip 
+
+sudo sh install.sh -i    (Install)
+
+sudo sh install.sh -u    (upgrade)
+
+
+####Running Status 
+ /etc/init.d/cma status 
+
+#####Version checker
+/opt/McAfee/agent/bin/cmdagent -i  
+
+
+
+
+###### status
+netstat -tulpn
+
+
+====================================================================
+
+############# Task scheduling with Cron Job
+
+mkdir /crondemo
+
+cd crondemo
+
+touch file1 file2 file3
+
+ls
+
+date
+
+crontab -e 
+
+07 14 * * * rm -rf /crondemo
+
+ls /var/spool/cron
+
+
+########## cron commands
+
+crontab -l list the contents of your file
+crontab -r remove all crontab entries
+crontab -e opens your defaults text editor for cron job creation
+
+
+
+
+########## Telnet Insall on Linux Server 
+
+yum install telnet -y
+
+
+
+
+
+########## File Reading min 10 Lines
+
+tail access_log
+
+
+
+##############  version  ######## 
+
+#apache version  
+httpd -v 
+
+php -v
+php -m #Module
+
+
+#Linux Version 
+os-release 
+
+#mysql version
+mysqld -v 
+
+mysql -u nicmipd -p 
+pwd:
+status
+
+
+
+############## How to Change Groups of Files and Directories in Linux
+
+chgrp groupname filename
+chgrp groupname foldername
+
+############### How to Change Ownership in Linux
+chown name filename
+chown name foldername
+
+chmod 0777 filename
+chmod 0777 foldername
+
+
+############### mysqli Install
+
+
+yum install php-mysqli
+
+
+
+############### repository search
+yum search gd 
+
+
+gunzip docs.tar.gz
+
+
